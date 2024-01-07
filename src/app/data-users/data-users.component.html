@@ -21,7 +21,7 @@
 
   <ng-container matColumnDef="data_nascimento">
     <th mat-header-cell *matHeaderCellDef>Data de nascimento</th>
-    <td mat-cell *matCellDef="let user">{{ user?.data_nascimento }}</td>
+    <td mat-cell *matCellDef="let user">{{ user?.data_nascimento | date: 'dd/MM/yyyy'}}</td>
   </ng-container>
 
   <ng-container matColumnDef="escolaridade">

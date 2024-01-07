@@ -11,7 +11,8 @@ import { Response } from '../models/Response';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 
 @Component({
   selector: 'app-user-form',
@@ -28,9 +29,9 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
     MatNativeDateModule,
   ],
   providers: [
-    MatDatepickerModule,
-    MatNativeDateModule,
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.scss',
@@ -53,12 +54,6 @@ export class UserFormComponent implements OnInit {
       .createUser(userForm.value)
       .subscribe((userData: Response<User[]>) => {
         const data: any = userData.data;
-
-        data.map((item: User) => {
-          item.data_nascimento = new Date(
-            item.data_nascimento
-          ).toLocaleDateString('pt-BR');
-        });
 
         this.service.userData.next(data);
         this.dialogRef.close();

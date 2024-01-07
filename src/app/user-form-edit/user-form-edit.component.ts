@@ -6,19 +6,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import {
-  FormsModule,
-  FormControl,
-  FormGroupDirective,
-  NgForm,
-  Validators,
-  ReactiveFormsModule,
+  FormsModule
 } from '@angular/forms';
 import { UserApiService } from '../service/user-api.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { User } from '../models/Users';
 import { Response } from '../models/Response';
+import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 @Component({
   selector: 'app-user-form-edit',
   standalone: true,
@@ -31,7 +27,12 @@ import { Response } from '../models/Response';
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    FormsModule,
+    FormsModule
+  ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ],
   templateUrl: './user-form-edit.component.html',
   styleUrl: './user-form-edit.component.scss',
@@ -52,12 +53,6 @@ export class UserFormEditComponent implements OnInit {
     user.id = this.data.id;
     this.service.editUser(user).subscribe((userData: Response<User[]>) => {
       const data: any = userData.data;
-
-      data.map((item: User) => {
-        item.data_nascimento = new Date(
-          item.data_nascimento
-        ).toLocaleDateString('pt-BR');
-      });
 
       this.service.userData.next(data);
       this.dialogRef.close();

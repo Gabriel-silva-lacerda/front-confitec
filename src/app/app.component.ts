@@ -12,8 +12,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-root',
@@ -30,11 +28,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
+    MatInputModule
   ],
-
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

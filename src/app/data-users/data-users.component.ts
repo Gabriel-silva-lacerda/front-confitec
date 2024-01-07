@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { UserFormEditComponent } from '../user-form-edit/user-form-edit.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-data-users',
@@ -18,6 +19,7 @@ import { UserFormEditComponent } from '../user-form-edit/user-form-edit.componen
     MatIconModule,
     MatCardModule,
     MatTableModule,
+    CommonModule
   ],
   templateUrl: './data-users.component.html',
   styleUrl: './data-users.component.scss',
@@ -52,12 +54,7 @@ export class DataUsersComponent implements OnInit {
 
     this.service.getAllUsers().subscribe((user) => {
       const data: User[] = user.data;
-      data.map((item: any) => {
-        item.data_nascimento = new Date(
-          item.data_nascimento
-        ).toLocaleDateString('pt-BR');
-      });
-
+      
       this.service.userData.next(data);
     });
   }
