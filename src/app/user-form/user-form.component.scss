@@ -1,0 +1,27 @@
+form {
+  padding: 3rem 1rem 2rem 1rem;
+  position: relative;
+  mat-form-field {
+    display: block;
+  }
+
+  .button-close {
+    position: absolute;
+    right: 12px;
+    top: 0px;
+
+    border: none;
+    cursor: pointer;
+    background: none;
+
+    .icon-close {
+      font-size: 2rem;
+    }
+  }
+
+  .button-create-user {
+    width: 100%;
+    padding: 2rem 0;
+    font-size: 1.2rem;
+  }
+}

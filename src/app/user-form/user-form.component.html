@@ -1,0 +1,115 @@
+<!-- <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
+  <button matDialogClose>Close</button>
+  <label for="nome">Nome:</label>
+  <input type="text" id="nome" name="nome" ngModel required />
+
+  <label for="sobrenome">Sobrenome:</label>
+  <input type="text" id="sobrenome" name="sobrenome" ngModel required />
+
+  <label for="email">Email:</label>
+  <input type="text" id="email" name="email" ngModel required email />
+
+  @if (userForm.controls['email']?.errors && userForm.controls['email'].touched)
+  {
+  <p>Formato de email inválido.</p>
+  }
+
+  <label for="dataNascimento">Data de Nascimento:</label>
+  <input
+    type="date"
+    id="dataNascimento"
+    name="dataNascimento"
+    ngModel
+    required
+    [max]="currentDate"
+  />
+
+  <label for="escolaridade">Escolaridade:</label>
+  <select id="escolaridade" name="escolaridade" ngModel required>
+    <option value="Infantil">Infantil</option>
+    <option value="Fundamental">Fundamental</option>
+    <option value="Médio">Médio</option>
+    <option value="Superior">Superior</option>
+  </select>
+
+  <button
+    mat-raised-button
+    type="submit"
+    color="primary"
+    [disabled]="!userForm.valid"
+  >
+    Criar usuário
+  </button>
+</form> -->
+<form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
+  <button mat-dialog-close class="button-close">
+    <mat-icon color="primary" class="icon-close">close</mat-icon>
+  </button>
+
+  <mat-form-field appearance="fill">
+    <label for="nome">Nome:</label>
+    <input matInput type="text" id="nome" name="nome" ngModel required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <label for="sobrenome">Sobrenome:</label>
+    <input
+      matInput
+      type="text"
+      id="sobrenome"
+      name="sobrenome"
+      ngModel
+      required
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <label for="email">Email:</label>
+    <input
+      matInput
+      type="email"
+      id="email"
+      name="email"
+      ngModel
+      required
+      email
+    />
+
+    <mat-error> Formato de email inválido. </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <label for="data_nascimento">Data de nascimento</label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      [max]="currentDate"
+      name="data_nascimento"
+      ngModel
+    />
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error> Data de nascimento inválida. </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <label for="escolaridade">Escolaridade:</label>
+    <mat-select id="escolaridade" name="escolaridade" ngModel required>
+      <mat-option value="Infantil">Infantil</mat-option>
+      <mat-option value="Fundamental">Fundamental</mat-option>
+      <mat-option value="Médio">Médio</mat-option>
+      <mat-option value="Superior">Superior</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    type="submit"
+    color="primary"
+    [disabled]="!userForm.valid"
+    class="button-create-user"
+  >
+    Criar usuário
+  </button>
+</form>

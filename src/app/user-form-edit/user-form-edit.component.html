@@ -1,0 +1,82 @@
+<form (ngSubmit)="onSubmit(userForm.value)" #userForm="ngForm">
+  <button mat-dialog-close color="primary" class="button-close">
+    <mat-icon color="primary" class="icon-close">close</mat-icon>
+  </button>
+
+  <mat-form-field appearance="fill">
+    <label for="nome">Nome:</label>
+    <input
+      matInput
+      type="text"
+      id="nome"
+      name="nome"
+      [ngModel]="data.nome"
+      required
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <label for="sobrenome">Sobrenome:</label>
+    <input
+      matInput
+      type="text"
+      id="sobrenome"
+      name="sobrenome"
+      [ngModel]="data.sobrenome"
+      required
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <label for="email">Email:</label>
+    <input
+      matInput
+      type="email"
+      id="email"
+      name="email"
+      [ngModel]="data.email"
+      required
+    />
+
+    <mat-error> Formato de email inválido. </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <label for="data_nascimento">Data de nascimento</label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      [ngModel]="data.data_nascimento"
+      name="data_nascimento"
+      [max]="currentDate"
+    />
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <label for="escolaridade">Escolaridade:</label>
+    <mat-select
+      id="escolaridade"
+      name="escolaridade"
+      [ngModel]="data.escolaridade"
+      required
+    >
+      <mat-option value="Infantil">Infantil</mat-option>
+      <mat-option value="Fundamental">Fundamental</mat-option>
+      <mat-option value="Médio">Médio</mat-option>
+      <mat-option value="Superior">Superior</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    type="submit"
+    color="primary"
+    [disabled]="!userForm.valid"
+    class="button-edit-user"
+  >
+    Editar usuário
+  </button>
+</form>

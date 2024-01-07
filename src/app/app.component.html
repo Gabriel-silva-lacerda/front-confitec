@@ -1,2 +1,14 @@
 <app-header></app-header>
-<mat-card> </mat-card>
+<div>
+  <button mat-raised-button color="primary" (click)="openDialog()">
+    Adicionar usuário
+  </button>
+</div>
+<mat-form-field>
+  <mat-label>Choose a date</mat-label>
+  <input matInput [matDatepicker]="picker" />
+  <mat-hint>MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+<app-data-users></app-data-users>

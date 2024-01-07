@@ -1,0 +1,13 @@
+table {
+  min-width: initial !important;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+
+  .actions {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 0.5rem;
+  }
+}
