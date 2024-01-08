@@ -12,8 +12,8 @@ const URL = environment.URL;
 })
 export class UserApiService {
   constructor(private http: HttpClient) {}
-  userData = new BehaviorSubject<User[]>([]);
-  userActive = new BehaviorSubject<User>({} as User);
+  usersData = new BehaviorSubject<User[]>([]);
+  userEdit = new BehaviorSubject<User>({} as User);
 
   getAllUsers(): Observable<Response<User[]>> {
     return this.http.get<Response<User[]>>(`${URL}api/Users`);
@@ -27,7 +27,7 @@ export class UserApiService {
     return this.http.put<Response<User[]>>(`${URL}api/Users`, user);
   }
 
-  deleteUser(id: number) {
-    return this.http.delete<Response<User>>(`${URL}api/Users?id=${id}` );
+  deleteUser(id: number): Observable<Response<User>> {
+    return this.http.delete<Response<User>>(`${URL}api/Users?id=${id}`);
   }
 }

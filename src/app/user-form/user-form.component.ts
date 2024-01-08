@@ -11,8 +11,16 @@ import { Response } from '../models/Response';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
-import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+  MatNativeDateModule,
+} from '@angular/material/core';
+import {
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+} from '@angular/material-moment-adapter';
 
 @Component({
   selector: 'app-user-form',
@@ -30,32 +38,34 @@ import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-mo
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
-    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.scss',
 })
-export class UserFormComponent implements OnInit {
+export class UserFormComponent {
   service = inject(UserApiService);
-
   currentDate = new Date().toISOString().split('T')[0];
 
   constructor(private dialogRef: MatDialogRef<UserFormComponent>) {}
-  ngOnInit() {
-    const userData = this.service.userData.subscribe((user) =>
-      console.log(user)
-    );
-  }
 
+  isEmailAlreadyExists(email: string): boolean {
+    const currentUsers = this.service.usersData.getValue();
+    return currentUsers.some((user) => user.email === email);
+  }
 
   onSubmit(userForm: NgForm) {
     this.service
       .createUser(userForm.value)
       .subscribe((userData: Response<User[]>) => {
-        const data: any = userData.data;
+        const data: User[] = userData.data;
 
-        this.service.userData.next(data);
+        this.service.usersData.next(data);
         this.dialogRef.close();
       });
   }

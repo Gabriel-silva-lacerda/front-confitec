@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
     MatIconModule,
     MatCardModule,
     MatTableModule,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './data-users.component.html',
   styleUrl: './data-users.component.scss',
@@ -36,8 +36,7 @@ export class DataUsersComponent implements OnInit {
   ];
 
   service = inject(UserApiService);
-  userData: any = [];
-  cdr = inject(ChangeDetectorRef);
+  usersData!: MatTableDataSource<User>;
 
   constructor(public matDialog: MatDialog) {}
 
@@ -48,28 +47,28 @@ export class DataUsersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.service.userData.subscribe((user) => {
-      this.userData = new MatTableDataSource<any>(user);
+    this.service.usersData.subscribe((users) => {
+      this.usersData = new MatTableDataSource(users);
     });
 
     this.service.getAllUsers().subscribe((user) => {
       const data: User[] = user.data;
-      
-      this.service.userData.next(data);
+
+      this.service.usersData.next(data);
     });
   }
 
-  editUser = (user: User) => this.service.userActive.next(user);
+  editUser = (user: User) => this.service.userEdit.next(user);
 
   deleteUser(id: number) {
     this.service.deleteUser(id).subscribe(() => {
-      const users = this.service.userData.value;
-
+      const users = this.service.usersData.value;
       const index = users.findIndex((user: User) => user.id === id);
+      const isIndexValid = index !== -1;
 
-      if (index !== -1) {
+      if (isIndexValid) {
         users.splice(index, 1);
-        this.service.userData.next(users);
+        this.service.usersData.next(users);
       }
     });
   }

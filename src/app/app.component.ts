@@ -6,12 +6,9 @@ import { HeaderComponent } from './header/header.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
 import { DataUsersComponent } from './data-users/data-users.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-root',
@@ -25,10 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatCardModule,
     MatDividerModule,
     MatListModule,
-    MatIconModule,
     MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -37,8 +31,10 @@ export class AppComponent {
   constructor(public matDialog: MatDialog) {}
 
   openDialog() {
+    const widthVAlue = '450px';
+    
     this.matDialog.open(UserFormComponent, {
-      width: '450px',
+      width: widthVAlue,
     });
   }
 
